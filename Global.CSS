@@ -1,22 +1,41 @@
-l5 {color:#000 !important; background-color:#fff5f2 !important}
+l5 {color:#ffffff !important; background-color:#fff5f2 !important}
 l4 {color:#000 !important; background-color:#ffddd3 !important}
-l3 {color:#000 !important; background-color:#ffbca7 !important}
-l2 {color:#000 !important; background-color:#ff9a7b !important}
-l1 {color:#fff !important; background-color:#ff7850 !important}
+l3 {color:#000 !important; background-color:#ffeaa7 !important}
+l2 {color:#000 !important; background-color:#fffd7b !important}
+l1 {color:#fff !important; background-color:#ffbc50 !important}
 d1 {color:#fff !important; background-color:#ff4107 !important}
 d2 {color:#fff !important; background-color:#e93600 !important}
 d3 {color:#fff !important; background-color:#cb2f00 !important}
 d4 {color:#fff !important; background-color:#ae2900 !important}
 d5 {color:#fff !important; background-color:#912200 !important}
 
+
 light {color:#000 !important; background-color:#fff5f2 !important}
 dark {color:#fff !important; background-color:#912200 !important}
 action {color:#fff !important; background-color:#912200 !important}
 
-theme {color:#fff !important; background-color:#ff5722 !important}
+theme {color:#f8f4e4 !important; background-color:#ff5722 !important}
 text-theme {color:#ff5722 !important}
 border-theme {border-color:#ff5722 !important}
 
 hover-theme:hover {color:#fff !important; background-color:#ff5722 !important}
 hover-text-theme:hover {color:#ff5722 !important}
 hover-border-theme:hover {border-color:#ff5722 !important}
+
+/* Paragraphs styled with the theme */
+p.theme {
+    color: #f8f4e4 !important;
+    background-color: #ff5722 !important;
+}
+
+/* Headings styled with the theme */
+h1.theme, h2.theme, h3.theme, h4.theme, h5.theme, h6.theme {
+    color: #f8f4e4 !important;
+    background-color: #ff5722 !important;
+}
+
+/* Hover effects for paragraphs and headings */
+p.theme:hover, h1.theme:hover, h2.theme:hover, h3.theme:hover, h4.theme:hover, h5.theme:hover, h6.theme:hover {
+    color: #fff !important;
+    background-color: #e64a19 !important; /* Slightly darker shade for hover */
+}
