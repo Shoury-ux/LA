@@ -1,1 +1,1 @@
-# This is a therapy AI tool to help dignose, treat and deal with metal health issues.
+# This is a therapy AI tool to help dignose, treat and deal with mental health issues.
