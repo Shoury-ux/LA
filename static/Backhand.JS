@@ -1,10 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM fully loaded and parsed");
+
     const form = document.getElementById("conversationForm");
     const input = document.getElementById("conversationInput");
     const messagesContainer = document.getElementById("messages");
 
+    if (!form || !input || !messagesContainer) {
+        console.error("One or more elements are missing from the DOM");
+        return;
+    }
+
     form.addEventListener("submit", (event) => {
         event.preventDefault(); // Prevent form submission
+        console.log("Form submitted");
 
         const messageText = input.value.trim();
         if (messageText) {
@@ -29,6 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to load a conversation into the message history
     window.loadConversation = (conversation) => {
+        console.log("Loading conversation:", conversation);
+
         // Clear the current messages
         messagesContainer.innerHTML = "";
 

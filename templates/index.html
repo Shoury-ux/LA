@@ -4,109 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conversation Analyzer</title>
-    <script src="Backhand.JS"></script>
-    <style>
-        body {
-            font-family: Cambria, Georgia, Times, 'Times New Roman', serif, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-        }
-        .container {
-            width: 70%;
-            padding: 20px;
-            background: rgb(252, 164, 97);
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-left: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-        .sidebar {
-            width: 25%;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            position: sticky;
-            top: 20px;
-            height: fit-content;
-        }
-        .sidebar h3 {
-            text-align: center;
-        }
-        .sidebar ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .sidebar li {
-            padding: 10px;
-            background-color: #f1f1f1;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-        h1 {
-            text-align: center;
-        }
-        .advice {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e1f5fe;
-            border: 1px solid #fcdfb3;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .input-area {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #906a1e;
-            background-color: #ffcd8c;
-            border-radius: 10px;
-            font-size: 16px;
-            resize: vertical;
-        }
-        .btn-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .btn {
-            background-color: #ffbf00;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn:hover {
-            background-color: #cb9e09;
-        }
-        .messages {
-            background-color: #fff8e1;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        .message {
-            background-color: #ffffff;
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .send-icon {
-            width: 50px;
-            height: 50px;
-        }
-    </style>
+    <!-- Use Flask's url_for to reference static files -->
+    <script src="{{ url_for('static', filename='Backhand.JS') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Global.CSS') }}">
 </head>
 <body>
 
@@ -127,21 +27,21 @@
     <h1>Conversation Analyzer</h1>
     <p>Enter a conversation below, and we'll give you advice on how the other person might be feeling:</p>
 
-<!-- Message history -->
-<div id="messages" class="messages">
-    <div class="message">No messages yet.</div>
-</div>
-
-<!-- Input form -->
-<form id="conversationForm">
-    <textarea id="conversationInput" name="conversation" class="input-area" rows="4" placeholder="Type your message here..."></textarea>
-    <div class="btn-container">
-        <button type="submit" class="btn">
-            <span>Send</span>
-            <img src="send-icon.png" alt="Send" class="send-icon">
-        </button>
+    <!-- Message history -->
+    <div id="messages" class="messages">
+        <div class="message">No messages yet.</div>
     </div>
-</form>
+
+    <!-- Input form -->
+    <form id="conversationForm">
+        <textarea id="conversationInput" name="conversation" class="input-area" rows="4" placeholder="Type your message here..."></textarea>
+        <div class="btn-container">
+            <button type="submit" class="btn">
+                <span>Send</span>
+                <img src="{{ url_for('static', filename='send-icon.png') }}" alt="Send" class="send-icon">
+            </button>
+        </div>
+    </form>
 </div>
 
 </body>

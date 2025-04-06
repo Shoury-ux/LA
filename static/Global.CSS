@@ -1,0 +1,102 @@
+/* Global CSS for the web application */
+/* Reset some default styles */
+        body {
+            font-family: Cambria, Georgia, Times, 'Times New Roman', serif, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+        }
+        .container {
+            width: 70%;
+            padding: 20px;
+            background: rgb(252, 164, 97);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar {
+            width: 25%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        .sidebar h3 {
+            text-align: center;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .sidebar li {
+            padding: 10px;
+            background-color: #f1f1f1;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .advice {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e1f5fe;
+            border: 1px solid #fcdfb3;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .input-area {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #906a1e;
+            background-color: #ffcd8c;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: vertical;
+        }
+        .btn-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn {
+            background-color: #ffbf00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn:hover {
+            background-color: #cb9e09;
+        }
+        .messages {
+            background-color: #fff8e1;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .message {
+            background-color: #ffffff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .send-icon {
+            width: 50px;
+            height: 50px;
+        }

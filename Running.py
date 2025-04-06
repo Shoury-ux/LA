@@ -15,12 +15,12 @@ class WebWindow(QMainWindow):
 
         # Set up the web engine view
         self.browser = QWebEngineView()
-        self.browser.setUrl(QUrl.fromLocalFile(
-            r"C:\Users\wrbre\OneDrive\Desktop\Documents\LA\index.html"))
+        # Update to load Flask server URL
+        self.browser.setUrl(QUrl("http://127.0.0.1:5000/"))
 
         # Create sidebar logo
         logo_label = QLabel()
-        logo_pixmap = QPixmap(r"C:\Users\wrbre\OneDrive\Desktop\Documents\LA\logo.png")  # ✅ Replace with your actual image path
+        logo_pixmap = QPixmap(r"C:\Users\wrbre\OneDrive\Desktop\Documents\LA\static\logo.png")  # ✅ Replace with your actual image path
         logo_label.setPixmap(logo_pixmap.scaled(100, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         logo_label.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
