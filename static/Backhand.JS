@@ -36,12 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     saveButton.addEventListener("click", () => {
         console.log("Save button clicked");
-
+    
         // Collect all messages in the conversation
         const messages = Array.from(messagesContainer.querySelectorAll(".message"))
             .map((message) => message.textContent)
             .join("\n");
-
+    
         if (messages.trim()) {
             // Send the conversation to the server
             fetch("/save", {
@@ -55,6 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (response.ok) {
                         console.log("Conversation saved!");
                         alert("Conversation saved successfully!");
+    
+                        // Dynamically update the conversation list
+                        const conversationList = document.getElementById("conversationList");
+                        const newListItem = document.createElement("li");
+                        newListItem.textContent = messages.slice(0, 50) + (messages.length > 50 ? "..." : "");
+                        newListItem.onclick = () => loadConversation(messages);
+                        conversationList.appendChild(newListItem);
                     } else {
                         console.error("Failed to save conversation.");
                         alert("Failed to save conversation.");

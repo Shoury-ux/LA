@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtCore import QUrl, Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QLabel
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QIcon  # Import QIcon
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 
@@ -12,6 +12,9 @@ class WebWindow(QMainWindow):
         # Set up the window
         self.setWindowTitle("Console AI")
         self.setGeometry(100, 100, 1000, 600)  # Wider to fit sidebar + browser
+
+        # Set the window icon
+        self.setWindowIcon(QIcon(r"C:\Users\wrbre\OneDrive\Desktop\Documents\LA\static\logo.png"))  # ✅ Replace with your actual image path
 
         # Set up the web engine view
         self.browser = QWebEngineView()
