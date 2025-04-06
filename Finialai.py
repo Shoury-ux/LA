@@ -4,7 +4,7 @@ import openai
 from datetime import datetime, timedelta
 
 # 🔐 Replace with your OpenAI API key
-client = openai.OpenAI(api_key="**apI_key_here**")  # Make sure to replace with your actual OpenAI API key
+client = openai.OpenAI(api_key="")  # Make sure to replace with your actual OpenAI API key
 
 # Fetch conversation history from a specific phone number
 def fetch_conversation(phone_number):
