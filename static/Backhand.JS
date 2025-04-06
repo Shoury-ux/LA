@@ -26,4 +26,19 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+
+    // Function to load a conversation into the message history
+    window.loadConversation = (conversation) => {
+        // Clear the current messages
+        messagesContainer.innerHTML = "";
+
+        // Split the conversation into lines and display each as a message
+        const messages = conversation.split("\n");
+        messages.forEach((message) => {
+            const messageElement = document.createElement("div");
+            messageElement.classList.add("message");
+            messageElement.textContent = message;
+            messagesContainer.appendChild(messageElement);
+        });
+    };
 });

@@ -113,9 +113,11 @@
 <!-- Sidebar -->
 <div class="sidebar">
     <h3>Previous Conversations</h3>
-    <ul>
+    <ul id="conversationList">
         {% for conversation in conversations %}
-            <li>{{ conversation[:50] }}{{ '...' if conversation|length > 50 else '' }}</li>
+            <li onclick="loadConversation(`{{ conversation|replace('\n', '\\n') }}`)">
+                {{ conversation[:50] }}{{ '...' if conversation|length > 50 else '' }}
+            </li>
         {% endfor %}
     </ul>
 </div>
