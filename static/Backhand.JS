@@ -7,41 +7,54 @@ document.addEventListener("DOMContentLoaded", () => {
     const saveButton = document.getElementById("saveButton");
     const deleteButton = document.getElementById("deleteButton");
 
-    if (!form || !input || !messagesContainer || !saveButton || !deleteButton) {
-        console.error("One or more elements are missing from the DOM");
-        return;
-    }
-
     form.addEventListener("submit", (event) => {
         event.preventDefault(); // Prevent form submission
-        console.log("Form submitted");
 
-        const messageText = input.value.trim();
-        if (messageText) {
-            // Remove "No messages yet." placeholder if it exists
-            const placeholder = messagesContainer.querySelector(".message");
-            if (placeholder && placeholder.textContent === "No messages yet.") {
-                placeholder.remove();
-            }
+        const userMessage = input.value.trim();
+        if (userMessage) {
+            // Display the user's message in the chatbox
+            const userMessageElement = document.createElement("div");
+            userMessageElement.classList.add("message");
+            userMessageElement.textContent = `You: ${userMessage}`;
+            messagesContainer.appendChild(userMessageElement);
 
-            // Add the new message to the UI
-            const newMessage = document.createElement("div");
-            newMessage.classList.add("message");
-            newMessage.textContent = messageText;
-            messagesContainer.appendChild(newMessage);
+            // Clear the input field
+            input.value = "";
 
-            input.value = ""; // Clear the input field
+            // Send the message to the server
+            fetch("/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ message: userMessage }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.response) {
+                        // Display the AI's response in the chatbox
+                        const aiMessageElement = document.createElement("div");
+                        aiMessageElement.classList.add("message");
+                        aiMessageElement.textContent = `AI: ${data.response}`;
+                        messagesContainer.appendChild(aiMessageElement);
+                    } else {
+                        console.error("Error from server:", data.error);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error sending message:", error);
+                });
         }
     });
 
     saveButton.addEventListener("click", () => {
         console.log("Save button clicked");
-    
+
         // Collect all messages in the conversation
         const messages = Array.from(messagesContainer.querySelectorAll(".message"))
             .map((message) => message.textContent)
             .join("\n");
-    
+
         if (messages.trim()) {
             // Send the conversation to the server
             fetch("/save", {
@@ -55,13 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (response.ok) {
                         console.log("Conversation saved!");
                         alert("Conversation saved successfully!");
-    
-                        // Dynamically update the conversation list
-                        const conversationList = document.getElementById("conversationList");
-                        const newListItem = document.createElement("li");
-                        newListItem.textContent = messages.slice(0, 50) + (messages.length > 50 ? "..." : "");
-                        newListItem.onclick = () => loadConversation(messages);
-                        conversationList.appendChild(newListItem);
                     } else {
                         console.error("Failed to save conversation.");
                         alert("Failed to save conversation.");
@@ -88,21 +94,4 @@ document.addEventListener("DOMContentLoaded", () => {
         placeholder.textContent = "No messages yet.";
         messagesContainer.appendChild(placeholder);
     });
-
-    // Function to load a conversation into the message history
-    window.loadConversation = (conversation) => {
-        console.log("Loading conversation:", conversation);
-
-        // Clear the current messages
-        messagesContainer.innerHTML = "";
-
-        // Split the conversation into lines and display each as a message
-        const messages = conversation.split("\n");
-        messages.forEach((message) => {
-            const messageElement = document.createElement("div");
-            messageElement.classList.add("message");
-            messageElement.textContent = message;
-            messagesContainer.appendChild(messageElement);
-        });
-    };
 });

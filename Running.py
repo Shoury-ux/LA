@@ -19,7 +19,9 @@ class WebWindow(QMainWindow):
         # Set up the web engine view
         self.browser = QWebEngineView()
         # Update to load Flask server URL
+        self.setCentralWidget(self.browser)
         self.browser.setUrl(QUrl("http://127.0.0.1:5000/"))
+        
 
         # Create sidebar logo
         logo_label = QLabel()
