@@ -16,22 +16,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const messageText = input.value.trim();
         if (messageText) {
-            // Create a new message element
+            // Save the conversation to the server
+            fetch("/save", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `conversation=${encodeURIComponent(messageText)}`,
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        console.log("Conversation saved!");
+                    } else {
+                        console.error("Failed to save conversation.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error saving conversation:", error);
+                });
+
+            // Add the message to the UI
             const newMessage = document.createElement("div");
             newMessage.classList.add("message");
             newMessage.textContent = messageText;
-
-            // Add the new message to the messages container
             messagesContainer.appendChild(newMessage);
 
-            // Clear the input field
-            input.value = "";
-
-            // Remove "No messages yet." if it exists
-            const noMessages = messagesContainer.querySelector(".message");
-            if (noMessages && noMessages.textContent === "No messages yet.") {
-                noMessages.remove();
-            }
+            input.value = ""; // Clear the input field
         }
     });
 
@@ -43,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         messagesContainer.innerHTML = "";
 
         // Split the conversation into lines and display each as a message
-        const messages = conversation.split("\n");
+        const messages = conversation.split("\\n");
         messages.forEach((message) => {
             const messageElement = document.createElement("div");
             messageElement.classList.add("message");
