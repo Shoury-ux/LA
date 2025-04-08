@@ -5,33 +5,41 @@
   <title>Message Rewriter & Emotion Predictor</title>
 </head>
 <body>
-  <div class="container">
-    <h1>Message Rewriter & Emotion Predictor</h1>
-    <form method="POST" action="/">
-      <label for="phone">📱 Phone Number:</label><br />
-      <input type="text" name="phone" placeholder="+1XXXXXXXXXX" required /><br /><br />
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>Previous Conversations</h3>
+        <ul id="conversationList">
+            {% for conversation in conversations %}
+                <li onclick="loadConversation(`{{ conversation|replace('\n', '\\n') }}`)">
+                    {{ conversation[:50] }}{{ '...' if conversation|length > 50 else '' }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-      <label for="base_message">💬 Your Message:</label><br />
-      <textarea name="base_message" placeholder="What do you want to say?" required></textarea><br /><br />
+    <!-- Main content -->
+    <div class="container">
+        <h1>Conversation Analyzer</h1>
+        <p>Chat with the AI below:</p>
 
-      <label for="emotion">🎯 Desired Emotion (only for Rewriting):</label><br />
-      <input type="text" name="emotion" placeholder="e.g. happy, comforted" /><br /><br />
+        <!-- Message history -->
+        <div id="messages" class="messages">
+            <div class="message">No messages yet.</div>
+        </div>
 
-      <label for="mode">🧠 Choose Mode:</label><br />
-      <select name="mode" required>
-        <option value="rewrite">Rewrite Message to Evoke Emotion</option>
-        <option value="predict">Predict Their Emotional Reaction</option>
-      </select><br /><br />
-
-      <button type="submit">Submit</button>
-    </form>
-
-    {% if response %}
-      <h2>AI Response:</h2>
-      <div style="border:1px solid #ccc; padding:10px; max-width:600px;">
-        {{ response }}
-      </div>
-    {% endif %}
-  </div>
+        <!-- Input form -->
+        <form id="conversationForm">
+            <textarea id="conversationInput" class="input-area" rows="4" placeholder="Type your message here..."></textarea>
+            <div class="btn-container">
+                <button type="submit" class="btn">
+                    <span>Send</span>
+                </button>
+            </div>
+            <div class="btn-container">
+                <button id="saveButton" class="btn">Save Conversation</button>
+                <button id="deleteButton" class="btn">Delete Conversation</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

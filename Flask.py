@@ -33,20 +33,36 @@ def save_conversation():
 
 @app.route("/chat", methods=["POST"])
 def chat_with_ai():
-    user_message = request.json.get("message", "")
-    if not user_message:
-        return jsonify({"error": "No message provided"}), 400
+    mode = request.json.get("mode", "1")  # Default to Mode 1 if no mode is provided
 
-    try:
-        # Simulate a conversation history (you can replace this with actual history)
-        history = [("Hello", "Hi there!"), ("How are you?", "I'm just a program, but I'm doing well!")]
+    if mode == "1":
+        # Mode 1: Process base statement and emotion
+        base_statement = request.json.get("baseStatement", "")
+        emotion = request.json.get("emotion", "")
 
-        # Predict the emotion or generate a response
-        response = predict_emotion(history, user_message)  # Call the function from Finialai.py
-        return jsonify({"response": response}), 200
-    except Exception as e:
-        print(f"Error during AI chat: {e}")
-        return jsonify({"error": "Failed to process the message"}), 500
+        if not base_statement or not emotion:
+            return jsonify({"error": "Base statement and emotion are required for Mode 1."}), 400
+
+        # Call the AI function to generate a response
+        try:
+            response = predict_emotion(base_statement, emotion)  # Call the AI function
+        except Exception as e:
+            print(f"Error in Mode 1 AI logic: {e}")
+            return jsonify({"error": "Failed to process Mode 1 inputs."}), 500
+
+    elif mode == "2":
+        # Mode 2: Process single message
+        user_message = request.json.get("message", "")
+
+        if not user_message:
+            return jsonify({"error": "Message is required for Mode 2."}), 400
+
+        # Generate a response for the message
+        response = f"Mode 2 response to: {user_message}"
+    else:
+        response = "Invalid mode selected."
+
+    return jsonify({"response": response}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)
