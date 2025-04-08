@@ -3,43 +3,84 @@
 <head>
   <meta charset="UTF-8" />
   <title>Message Rewriter & Emotion Predictor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 25px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .response-box {
+      margin-top: 30px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      background: #f9f9f9;
+      font-size: 1.1em;
+    }
+  </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h3>Previous Conversations</h3>
-        <ul id="conversationList">
-            {% for conversation in conversations %}
-                <li onclick="loadConversation(`{{ conversation|replace('\n', '\\n') }}`)">
-                    {{ conversation[:50] }}{{ '...' if conversation|length > 50 else '' }}
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+  <div class="container">
+    <h1>Message Rewriter & Emotion Predictor</h1>
+    <form method="POST" action="/">
+      <label for="phone">📱 Phone Number:</label>
+      <input type="text" name="phone" placeholder="+1XXXXXXXXXX" required />
 
-    <!-- Main content -->
-    <div class="container">
-        <h1>Conversation Analyzer</h1>
-        <p>Chat with the AI below:</p>
+      <label for="base_message">💬 Your Message:</label>
+      <textarea name="base_message" rows="3" placeholder="What do you want to say?" required></textarea>
 
-        <!-- Message history -->
-        <div id="messages" class="messages">
-            <div class="message">No messages yet.</div>
-        </div>
+      <label for="emotion">🎯 Desired Emotion (only for Rewriting):</label>
+      <input type="text" name="emotion" placeholder="e.g. happy, comforted" />
 
-        <!-- Input form -->
-        <form id="conversationForm">
-            <textarea id="conversationInput" class="input-area" rows="4" placeholder="Type your message here..."></textarea>
-            <div class="btn-container">
-                <button type="submit" class="btn">
-                    <span>Send</span>
-                </button>
-            </div>
-            <div class="btn-container">
-                <button id="saveButton" class="btn">Save Conversation</button>
-                <button id="deleteButton" class="btn">Delete Conversation</button>
-            </div>
-        </form>
-    </div>
+      <label for="mode">🧠 Choose Mode:</label>
+      <select name="mode" required>
+        <option value="rewrite">Rewrite Message to Evoke Emotion</option>
+        <option value="predict">Predict Their Emotional Reaction</option>
+      </select>
+
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+
+    {% if response %}
+      <h2>AI Response:</h2>
+      <div class="response-box">
+        "{{ response }}"
+      </div>
+    {% endif %}
+  </div>
 </body>
 </html>

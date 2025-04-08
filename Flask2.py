@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
-client = openai.OpenAI(api_key="your_api_key_here")  # 🔐 Replace with your actual key
+client = openai.OpenAI(api_key="your-openai-api-key")  # 🔐 Replace with your actual key
 
 def fetch_conversation(phone_number):
     db_path = os.path.expanduser('~/Library/Messages/chat.db')
